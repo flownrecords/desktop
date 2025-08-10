@@ -1,11 +1,17 @@
 const { app, BrowserWindow, net } = require('electron');
 const { updateElectronApp } = require('update-electron-app');
+const RPC = require('discord-rpc');
 
 updateElectronApp({
   repo: 'flownrecords/desktop',
   updateInterval: '1 hour',
   notifyUser: true,
 });
+
+const clientId = '1404168832293142578';
+RPC.register(clientId);
+
+const rpc = new RPC.Client({ transport: 'ipc' });
 
 const path = require('node:path');
 
@@ -15,6 +21,7 @@ if (require('electron-squirrel-startup')) {
 
 let splashWindow;
 let mainWindow;
+let sessionStart = Date.now();
 
 const createSplash = () => {
   splashWindow = new BrowserWindow({
@@ -71,6 +78,23 @@ const createMain = () => {
   });
 };
 
+const setActivity = () => {
+  if (!rpc) return;
+
+  rpc.setActivity({
+    details: 'Viewing their logbook',
+    state: 'flownrecords.live',
+    startTimestamp: sessionStart,
+    instance: false,
+    buttons: [
+      {
+        label: 'Visit',
+        url: 'https://flownrecords.live'
+      }
+    ]
+  });
+}
+
 app.whenReady().then(async () => {
   splashWindow = createSplash();
 
@@ -86,6 +110,14 @@ app.whenReady().then(async () => {
     }
   });
 });
+
+rpc.on('ready', () => {
+  setActivity();
+
+  setInterval(() => setActivity(), 15e3);
+});
+
+rpc.login({ clientId }).catch(console.error);
 
 app.on('window-all-closed', () => {
   if (process.platform !== 'darwin') {
