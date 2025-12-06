@@ -1,0 +1,32 @@
+{
+  "productName": "Flown Records",
+  "appId": "com.flownrecords.app",
+  "executableName": "FlownRecords",
+  "files": [
+    "dist-electron"
+  ],
+  "extraResources": [
+    "src/assets/**",
+    "src/ui/splash.html"
+  ],
+  "icon": "src/assets/icon.png",
+
+  "publish": {
+    "provider": "github",
+    "owner": "flownrecords",
+    "repo": "desktop",
+    "releaseType": "draft"
+  },
+
+  "mac": {
+    "target": "dmg"
+  },
+  "linux": {
+    "target": "AppImage",
+    "category": "Utility"
+  },
+  "win": {
+    "target": ["portable", "msi"],
+    "artifactName": "OrbitBoardSetup-${version}.${ext}"
+  }
+}

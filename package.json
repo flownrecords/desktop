@@ -1,39 +1,34 @@
 {
-  "name": "desktop",
-  "productName": "desktop",
-  "version": "1.0.6",
-  "description": "My Electron application description",
-  "main": "src/index.js",
-  "scripts": {
-    "start": "electron-forge start",
-    "package": "electron-forge package",
-    "make": "electron-forge make",
-    "publish": "electron-forge publish",
-    "publish-backup": "npx dotenv-cli -- electron-forge publish",
-    "lint": "echo \"No linting configured\""
-  },
-  "keywords": [],
+  "name": "flownrecords",
+  "private": true,
+  "version": "2.0.0",
+  "type": "module",
+  "main": "dist-electron/main.js",
+  "description": "The application to access the Flown Records Platform via your desktop.",
   "author": {
-    "name": "Jürgen Jacobsen",
-    "email": "jurgenjacobsen@outlook.com"
+    "name": "Jürgen Jacobsen"
   },
-  "license": "MIT",
+  "scripts": {
+    "dev": "npm-run-all --parallel dev:electron",
+    "dev:electron": "npm run transpile:electron && cross-env NODE_ENV=development electron .",
+    "transpile:electron": "tsc --project src/electron/tsconfig.json",
+    "dist:mac": "npm run transpile:electron && electron-builder --mac --arm64",
+    "dist:win": "npm run transpile:electron && electron-builder --win --x64",
+    "dist:linux": "npm run transpile:electron && electron-builder --linux --x64",
+    "publish:win": "npx dotenv-cli -- npm run dist:win && electron-builder --publish=always --win --x64"
+  },
   "dependencies": {
-    "discord-rpc": "^4.0.1",
-    "electron-squirrel-startup": "^1.0.1",
-    "update-electron-app": "^3.1.1"
+    "electron-updater": "^6.6.2"
   },
   "devDependencies": {
-    "@electron-forge/cli": "^7.8.1",
-    "@electron-forge/maker-deb": "^7.8.1",
-    "@electron-forge/maker-rpm": "^7.8.1",
-    "@electron-forge/maker-squirrel": "^7.8.1",
-    "@electron-forge/maker-zip": "^7.8.1",
-    "@electron-forge/plugin-auto-unpack-natives": "^7.8.1",
-    "@electron-forge/plugin-fuses": "^7.8.1",
-    "@electron-forge/publisher-github": "^7.8.1",
-    "@electron/fuses": "^1.8.0",
-    "dotenv": "^17.2.1",
-    "electron": "36.4.0"
+    "@types/discord-rpc": "^4.0.10",
+    "@types/node": "^24.10.1",
+    "cross-env": "^10.1.0",
+    "dotenv-cli": "^11.0.0",
+    "electron": "^39.2.4",
+    "electron-builder": "^26.0.12",
+    "globals": "^16.0.0",
+    "npm-run-all": "^4.1.5",
+    "typescript": "~5.8.3"
   }
 }

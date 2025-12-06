@@ -1,0 +1,44 @@
+import { BrowserWindow, Menu, Tray, app } from "electron";
+import { getAssetPath } from "./pathResolver.js";
+import path from "path";
+
+export function createTray(mainWindow: BrowserWindow) {
+  const tray = new Tray(
+    path.join(
+      getAssetPath(),
+      process.platform === 'darwin' ? 'iconTemplate.png' : 'icon.png'
+    )
+  );
+
+  tray.on('double-click', () => {
+    mainWindow.show();
+    if (app.dock) {
+        app.dock.show();
+    }
+  });
+
+  tray.setContextMenu(
+    Menu.buildFromTemplate([
+        {
+            label: 'Flown Records' + " ".repeat(10),
+            enabled: false,
+        },
+        {
+        type: 'separator',
+        },
+        {
+            label: 'Show',
+            click: () => {
+                mainWindow.show();
+                if (app.dock) {
+                    app.dock.show();
+                }
+            },
+        },
+        {
+            label: 'Quit',
+            click: () => app.quit(),
+        },
+    ])
+  );
+}
