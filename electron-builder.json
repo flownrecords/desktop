@@ -27,6 +27,6 @@
   },
   "win": {
     "target": ["portable", "msi"],
-    "artifactName": "OrbitBoardSetup-${version}.${ext}"
+    "artifactName": "FlownRecordsSetup-${version}.${ext}"
   }
 }

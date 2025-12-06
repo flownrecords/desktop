@@ -6,8 +6,6 @@ const { autoUpdater } = pkg;
 import path from 'path';
 import { getUIPath } from './pathResolver.js';
 
-const sessionStart = Date.now();
-
 let splashWindow: BrowserWindow | null = null;
 let mainWindow: BrowserWindow | null = null;
 
