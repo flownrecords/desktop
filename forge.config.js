@@ -5,7 +5,7 @@ const path = require('node:path');
 module.exports = {
   packagerConfig: {
     name: 'Flown Records',
-    appVersion: '1.0.0',
+    appVersion: '1.0.6',
     icon: path.resolve(__dirname, 'src', 'assets', 'icon'),
     executableName: 'flown-records',
     asar: true,
