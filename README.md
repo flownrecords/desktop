@@ -1,3 +1,6 @@
+> [!WARNING]
+> This project has been discontinued and it is not online anymore due to high maintenance costs. The codebase is available for reference, but it may contain bugs and security vulnerabilities. Use at your own risk.
+
 ![Flown Records Banner](/.github/assets/banner.png)
 # Flown Records Desktop
 The application to access the Flown Records Platform via your desktop.
